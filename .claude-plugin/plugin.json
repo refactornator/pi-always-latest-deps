@@ -1,0 +1,20 @@
+{
+  "name": "pi-always-latest-deps",
+  "version": "0.1.0",
+  "description": "PreToolUse hook that blocks direct edits to dependency manifests and redirects the agent to the package manager so it picks the latest version.",
+  "author": {
+    "name": "Liam Lindner",
+    "email": "refactornator@gmail.com"
+  },
+  "homepage": "https://github.com/refactornator/pi-always-latest-deps",
+  "repository": "https://github.com/refactornator/pi-always-latest-deps",
+  "license": "ISC",
+  "keywords": [
+    "claude-code",
+    "hook",
+    "dependencies",
+    "package-manager",
+    "supply-chain",
+    "security"
+  ]
+}

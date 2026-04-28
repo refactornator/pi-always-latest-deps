@@ -60,37 +60,18 @@ In short: it prevents a common “bad first step” that can quietly turn into s
 
 ## Use it with Claude Code
 
-The same idea works in Claude Code via a `PreToolUse` hook. The hook lives at
-[`claude-code/package-manager-interceptor.mjs`](claude-code/package-manager-interceptor.mjs)
-and is a single Node.js file with no runtime dependencies.
+This repo also ships as a Claude Code plugin. Install it once and the hook
+runs in every project.
 
 ### Install
 
-1. Drop `claude-code/package-manager-interceptor.mjs` into your project (or
-   reference it from anywhere on disk).
-2. Add the hook to your settings — either project-level
-   `.claude/settings.json` or user-level `~/.claude/settings.json`:
+```text
+/plugin marketplace add refactornator/pi-always-latest-deps
+/plugin install pi-always-latest-deps
+```
 
-   ```json
-   {
-     "hooks": {
-       "PreToolUse": [
-         {
-           "matcher": "Write|Edit|MultiEdit",
-           "hooks": [
-             {
-               "type": "command",
-               "command": "node $CLAUDE_PROJECT_DIR/claude-code/package-manager-interceptor.mjs"
-             }
-           ]
-         }
-       ]
-     }
-   }
-   ```
-
-   A ready-to-copy version lives at
-   [`claude-code/settings.example.json`](claude-code/settings.example.json).
+That's it — no JSON to edit, no per-project setup. The plugin installs to
+your user-level Claude Code config so the hook fires across all sessions.
 
 ### What happens
 
@@ -103,3 +84,11 @@ for Rust, and so on.
 
 The lockfile lookup walks up from the target file's directory, so it works
 inside monorepos and subpackages.
+
+### Manual install (without the plugin system)
+
+If you'd rather wire the hook up yourself, the script lives at
+[`claude-code/package-manager-interceptor.mjs`](claude-code/package-manager-interceptor.mjs).
+Drop it on disk and add the snippet from
+[`claude-code/settings.example.json`](claude-code/settings.example.json) to your
+`.claude/settings.json`.
