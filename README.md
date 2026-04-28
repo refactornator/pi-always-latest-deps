@@ -57,3 +57,49 @@ In short: it prevents a common “bad first step” that can quietly turn into s
 ## The core idea
 
 **Don’t let the agent guess dependency versions by editing files. Make it ask the package manager for the latest sane version instead.**
+
+## Use it with Claude Code
+
+The same idea works in Claude Code via a `PreToolUse` hook. The hook lives at
+[`claude-code/package-manager-interceptor.mjs`](claude-code/package-manager-interceptor.mjs)
+and is a single Node.js file with no runtime dependencies.
+
+### Install
+
+1. Drop `claude-code/package-manager-interceptor.mjs` into your project (or
+   reference it from anywhere on disk).
+2. Add the hook to your settings — either project-level
+   `.claude/settings.json` or user-level `~/.claude/settings.json`:
+
+   ```json
+   {
+     "hooks": {
+       "PreToolUse": [
+         {
+           "matcher": "Write|Edit|MultiEdit",
+           "hooks": [
+             {
+               "type": "command",
+               "command": "node $CLAUDE_PROJECT_DIR/claude-code/package-manager-interceptor.mjs"
+             }
+           ]
+         }
+       ]
+     }
+   }
+   ```
+
+   A ready-to-copy version lives at
+   [`claude-code/settings.example.json`](claude-code/settings.example.json).
+
+### What happens
+
+When Claude Code is about to call `Write`, `Edit`, or `MultiEdit` on a file like
+`package.json`, `Cargo.toml`, `Gemfile`, `go.mod`, `requirements.txt`, or
+`deno.json[c]`, the hook returns a `deny` decision and tells Claude to run the
+right package-manager command instead — e.g. `pnpm add <package>` if a
+`pnpm-lock.yaml` is present, `bun add <package>` for Bun, `cargo add <package>`
+for Rust, and so on.
+
+The lockfile lookup walks up from the target file's directory, so it works
+inside monorepos and subpackages.
