@@ -2,7 +2,7 @@
 
 ![CI](https://github.com/refactornator/pi-always-latest-deps/actions/workflows/test.yml/badge.svg)
 
-> A Pi extension that keeps AI coding agents from installing stale dependencies.
+> A Pi extension that prevents installing stale dependencies.
 
 ## What is this?
 
