@@ -57,3 +57,38 @@ In short: it prevents a common “bad first step” that can quietly turn into s
 ## The core idea
 
 **Don’t let the agent guess dependency versions by editing files. Make it ask the package manager for the latest sane version instead.**
+
+## Use it with Claude Code
+
+This repo also ships as a Claude Code plugin. Install it once and the hook
+runs in every project.
+
+### Install
+
+```text
+/plugin marketplace add refactornator/pi-always-latest-deps
+/plugin install pi-always-latest-deps
+```
+
+That's it — no JSON to edit, no per-project setup. The plugin installs to
+your user-level Claude Code config so the hook fires across all sessions.
+
+### What happens
+
+When Claude Code is about to call `Write`, `Edit`, or `MultiEdit` on a file like
+`package.json`, `Cargo.toml`, `Gemfile`, `go.mod`, `requirements.txt`, or
+`deno.json[c]`, the hook returns a `deny` decision and tells Claude to run the
+right package-manager command instead — e.g. `pnpm add <package>` if a
+`pnpm-lock.yaml` is present, `bun add <package>` for Bun, `cargo add <package>`
+for Rust, and so on.
+
+The lockfile lookup walks up from the target file's directory, so it works
+inside monorepos and subpackages.
+
+### Manual install (without the plugin system)
+
+If you'd rather wire the hook up yourself, the script lives at
+[`claude-code/package-manager-interceptor.mjs`](claude-code/package-manager-interceptor.mjs).
+Drop it on disk and add the snippet from
+[`claude-code/settings.example.json`](claude-code/settings.example.json) to your
+`.claude/settings.json`.

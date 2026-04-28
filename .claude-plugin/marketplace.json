@@ -1,0 +1,15 @@
+{
+  "name": "pi-always-latest-deps",
+  "owner": {
+    "name": "Liam Lindner",
+    "email": "refactornator@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "pi-always-latest-deps",
+      "source": "./",
+      "description": "Block direct edits to dependency manifests; redirect the agent to the right package-manager command.",
+      "version": "0.1.0"
+    }
+  ]
+}
