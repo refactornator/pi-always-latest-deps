@@ -6,10 +6,18 @@
     "test": "vitest",
     "typecheck": "tsc --noEmit"
   },
-  "keywords": [],
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "ai-coding-agent",
+    "dependencies",
+    "package-manager",
+    "supply-chain",
+    "security"
+  ],
   "author": "Liam Lindner (refactornator@gmail.com)",
   "license": "ISC",
-  "description": "",
+  "description": "Prevent stale AI-generated dependency pins before they land — a tiny Pi extension for fresher packages, safer defaults, and less tech debt.",
   "pi": {
     "extensions": [
       "./extensions"
@@ -19,5 +27,21 @@
     "@mariozechner/pi-coding-agent": "latest",
     "typescript": "^6.0.3",
     "vitest": "^4.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/refactornator/pi-always-latest-deps.git"
+  },
+  "homepage": "https://github.com/refactornator/pi-always-latest-deps#readme",
+  "bugs": {
+    "url": "https://github.com/refactornator/pi-always-latest-deps/issues"
+  },
+  "files": [
+    "extensions/package-manager-interceptor.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*"
   }
 }
