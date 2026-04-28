@@ -1,0 +1,23 @@
+{
+  "name": "pi-always-latest-deps",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [],
+  "author": "Liam Lindner (refactornator@gmail.com)",
+  "license": "ISC",
+  "description": "",
+  "pi": {
+    "extensions": [
+      "./extensions"
+    ]
+  },
+  "devDependencies": {
+    "@mariozechner/pi-coding-agent": "latest",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
+  }
+}
