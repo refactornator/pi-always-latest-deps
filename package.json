@@ -17,7 +17,7 @@
   ],
   "author": "Liam Lindner (refactornator@gmail.com)",
   "license": "ISC",
-  "description": "Prevent stale AI-generated dependency pins before they land — a tiny Pi extension for fresher packages, safer defaults, and less tech debt.",
+  "description": "Prevent stale AI-generated dependency versions from being installed — a tiny Pi extension for fresher dependency installs.",
   "pi": {
     "extensions": [
       "./extensions"
