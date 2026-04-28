@@ -1,5 +1,7 @@
 # pi-always-latest-deps
 
+![CI](https://github.com/refactornator/pi-always-latest-deps/actions/workflows/test.yml/badge.svg)
+
 > A Pi extension that keeps AI coding agents from installing stale dependencies.
 
 ## What is this?
