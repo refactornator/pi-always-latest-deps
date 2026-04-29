@@ -1,14 +1,24 @@
 {
-  "name": "pi-always-latest-deps",
+  "name": "always-latest-deps",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "./shared/dependency-policy.mjs",
+  "bin": {
+    "always-latest-deps": "./bin/always-latest-deps.mjs"
+  },
+  "exports": {
+    ".": "./shared/dependency-policy.mjs",
+    "./dependency-policy": "./shared/dependency-policy.mjs",
+    "./claude-hook": "./claude/hooks/dependency-manifest-guard.mjs"
+  },
   "scripts": {
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "generate:claude": "node ./scripts/generate-claude-artifacts.mjs",
+    "setup:self": "node ./bin/always-latest-deps.mjs setup"
   },
   "keywords": [
-    "pi-package",
-    "pi-extension",
+    "pi-coding-agent",
+    "claude-code",
     "ai-coding-agent",
     "dependencies",
     "package-manager",
@@ -17,7 +27,7 @@
   ],
   "author": "Liam Lindner (refactornator@gmail.com)",
   "license": "ISC",
-  "description": "Prevent stale AI-generated dependency versions from being installed — a tiny Pi extension for fresher dependency installs.",
+  "description": "Prevent stale AI-generated dependency versions from being installed — a tiny cross-agent package for fresher dependency installs 🌻",
   "pi": {
     "extensions": [
       "./extensions"
@@ -30,18 +40,32 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/refactornator/pi-always-latest-deps.git"
+    "url": "git+https://github.com/refactornator/always-latest-deps.git"
   },
-  "homepage": "https://github.com/refactornator/pi-always-latest-deps#readme",
+  "homepage": "https://github.com/refactornator/always-latest-deps#readme",
   "bugs": {
-    "url": "https://github.com/refactornator/pi-always-latest-deps/issues"
+    "url": "https://github.com/refactornator/always-latest-deps/issues"
   },
   "files": [
+    "bin/always-latest-deps.mjs",
     "extensions/package-manager-interceptor.ts",
+    "shared/dependency-policy.mjs",
+    "shared/dependency-policy.d.mts",
+    "setup/claude-renderers.mjs",
+    "setup/claude-setup.mjs",
+    "claude/hooks/dependency-manifest-guard.mjs",
+    "claude/hooks/dependency-manifest-guard.d.mts",
+    "claude/skill/CLAUDE.md",
+    "claude/examples/project-CLAUDE.md",
     "README.md",
     "LICENSE"
   ],
   "peerDependencies": {
     "@mariozechner/pi-coding-agent": "*"
+  },
+  "peerDependenciesMeta": {
+    "@mariozechner/pi-coding-agent": {
+      "optional": true
+    }
   }
 }

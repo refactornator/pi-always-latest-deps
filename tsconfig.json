@@ -8,5 +8,12 @@
     "skipLibCheck": true,
     "types": ["node", "vitest/globals"]
   },
-  "include": ["extensions/**/*.ts", "vitest.config.ts"]
+  "include": [
+    "extensions/**/*.ts",
+    "shared/**/*.d.mts",
+    "shared/**/*.test.ts",
+    "claude/**/*.d.mts",
+    "claude/**/*.test.ts",
+    "vitest.config.ts"
+  ]
 }
