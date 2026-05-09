@@ -12,6 +12,7 @@
   },
   "scripts": {
     "test": "vitest",
+    "test:integration": "vitest --run --config vitest.integration.config.ts",
     "typecheck": "tsc --noEmit",
     "generate:claude": "node ./scripts/generate-claude-artifacts.mjs",
     "setup:self": "node ./bin/always-latest-deps.mjs setup"
