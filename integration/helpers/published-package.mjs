@@ -1,4 +1,5 @@
 import { spawn } from "node:child_process";
+import { existsSync } from "node:fs";
 import {
   mkdtemp,
   mkdir,
@@ -52,6 +53,15 @@ function getNpmInvocation() {
     };
   }
 
+  const npmSiblingPath = join(dirname(process.execPath), "npm");
+
+  if (existsSync(npmSiblingPath)) {
+    return {
+      command: npmSiblingPath,
+      args: [],
+    };
+  }
+
   return {
     command: "npm",
     args: [],
@@ -101,6 +111,19 @@ export async function readProjectJson(projectRoot, relativePath) {
 }
 
 export async function packCurrentPackage() {
+  if (process.env.ALD_TEST_TARBALL) {
+    const tarballPath = process.env.ALD_TEST_TARBALL;
+
+    if (!existsSync(tarballPath)) {
+      throw new Error(`ALD_TEST_TARBALL does not exist: ${tarballPath}`);
+    }
+
+    return {
+      tarballPath,
+      cleanup: async () => {},
+    };
+  }
+
   const outputDir = await mkdtemp(join(tmpdir(), "always-latest-deps-pack-"));
   const result = await runNpm(["pack", "--json", "--pack-destination", outputDir], {
     cwd: process.cwd(),

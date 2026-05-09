@@ -13,6 +13,7 @@
   "scripts": {
     "test": "vitest",
     "test:integration": "vitest --run --config vitest.integration.config.ts",
+    "test:integration:proof": "node ./scripts/prove-integration-tests-work.mjs",
     "typecheck": "tsc --noEmit",
     "generate:claude": "node ./scripts/generate-claude-artifacts.mjs",
     "setup:self": "node ./bin/always-latest-deps.mjs setup"
